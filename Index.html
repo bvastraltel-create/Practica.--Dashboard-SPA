@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CloudMonitor SPA - Dashboard</title>
+    <link rel="stylesheet" href="assets/css/variables.css">
+    <link rel="stylesheet" href="assets/css/layout.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+</head>
+<body>
+    <div class="app-layout">
+        
+        <header class="main-header">
+            <div class="header-brand">
+                <button id="sidebar-toggle" class="btn-icon" aria-label="Abrir Menú">☰</button>
+                <span class="logo">CloudMonitor</span>
+            </div>
+            <nav class="breadcrumbs" aria-label="Breadcrumb">
+                <ol>
+                    <li><a href="#">Inicio</a></li>
+                    <li><a href="#">Instancias Cloud</a></li>
+                    <li aria-current="page">Dashboard Métricas</li>
+                </ol>
+            </nav>
+            <div class="header-actions">
+                <button id="theme-toggle" class="btn-icon" aria-label="Cambiar tema">🌙</button>
+                <div class="user-profile">DevOps Admin</div>
+            </div>
+        </header>
+
+        <aside class="sidebar" id="sidebar">
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="active"><a href="#metrics">📊 Métricas</a></li>
+                    <li><a href="#servers">🖥️ Servidores</a></li>
+                    <li><a href="#logs">📝 Registros</a></li>
+                    <li><a href="#settings" id="open-drawer-btn">⚙️ Configuración</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <section class="bento-grid">
+                <article class="card metric-card">
+                    <h3>Uso de CPU</h3>
+                    <p class="metric-value">42.5%</p>
+                    <span class="badge badge-success">Estable</span>
+                </article>
+
+                <article class="card metric-card">
+                    <h3>Memoria RAM</h3>
+                    <p class="metric-value">12.4 GB / 16 GB</p>
+                    <span class="badge badge-warning">Elevado</span>
+                </article>
+
+                <article class="card metric-card">
+                    <h3>Tráfico Entrante/Saliente</h3>
+                    <p class="metric-value">1.2 Gbps</p>
+                    <span class="badge badge-success">Normal</span>
+                </article>
+
+                <article class="card card-large">
+                    <header class="card-header">
+                        <h3>Instancias Activas</h3>
+                        <button class="btn btn-primary btn-sm" id="open-drawer-btn-2">+ Nueva Instancia</button>
+                    </header>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID Instancia</th>
+                                    <th>Nombre</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>i-098234a</td>
+                                    <td>us-east-prod-01</td>
+                                    <td><span class="status-dot online"></span> En línea</td>
+                                    <td>
+                                        <button class="btn btn-danger btn-sm open-modal-btn" data-instance="us-east-prod-01">Reiniciar</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>i-011234b</td>
+                                    <td>eu-west-db-02</td>
+                                    <td><span class="status-dot online"></span> En línea</td>
+                                    <td>
+                                        <button class="btn btn-danger btn-sm open-modal-btn" data-instance="eu-west-db-02">Reiniciar</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </article>
+            </section>
+        </main>
+    </div>
+
+    <div class="drawer-overlay" id="drawer-overlay"></div>
+    <aside class="drawer" id="drawer" role="dialog" aria-labelledby="drawer-title" aria-hidden="true">
+        <div class="drawer-header">
+            <h2 id="drawer-title">Parámetros del Servicio</h2>
+            <button class="btn-icon" id="close-drawer-btn" aria-label="Cerrar panel">&times;</button>
+        </div>
+        <form class="drawer-body" id="config-form">
+            <div class="form-group">
+                <label for="server-name">Nombre del Servidor</label>
+                <input type="text" id="server-name" class="form-control" placeholder="Ej. prod-node-01" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="environment">Entorno</label>
+                <select id="environment" class="form-control">
+                    <option value="prod">Producción</option>
+                    <option value="staging">Staging</option>
+                    <option value="dev">Desarrollo</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="check-date">Fecha de Mantenimiento</label>
+                <input type="date" id="check-date" class="form-control">
+            </div>
+
+            <div class="form-group toggle-group">
+                <span>Auto-escalado</span>
+                <label class="switch">
+                    <input type="checkbox" id="auto-scale">
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <div class="drawer-footer">
+                <button type="button" class="btn btn-secondary" id="cancel-drawer-btn">Cancelar</button>
+                <button type="submit" class="btn btn-primary" id="save-config-btn">
+                    <span class="btn-text">Guardar Cambios</span>
+                    <span class="spinner hidden" aria-hidden="true"></span>
+                </button>
+            </div>
+        </form>
+    </aside>
+
+    <!-- Modal: Diálogo de Confirmación para Acciones Destructivas -->
+    <div class="modal-overlay" id="modal-overlay"></div>
+    <div class="modal" id="modal" role="dialog" aria-labelledby="modal-title" aria-modal="true" aria-hidden="true">
+        <div class="modal-header">
+            <h3 id="modal-title">Confirmar Acción Crítica</h3>
+            <button class="btn-icon" id="close-modal-btn" aria-label="Cerrar modal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p>¿Estás seguro de que deseas reiniciar la instancia <strong id="modal-instance-name">--</strong>? Esta acción puede causar interrupciones temporales.</p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" id="modal-cancel-btn">Cancelar</button>
+            <button class="btn btn-danger" id="modal-confirm-btn">
+                <span class="btn-text">Sí, Reiniciar</span>
+                <span class="spinner hidden" aria-hidden="true"></span>
+            </button>
+        </div>
+    </div>
+
+    <script src="assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,127 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    transition: background-color var(--transition-normal), color var(--transition-normal);
+}
+
+.app-layout {
+    display: grid;
+    grid-template-rows: var(--header-height) 1fr;
+    grid-template-columns: 1fr;
+    min-height: 100vh;
+}
+
+.main-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1rem;
+    background-color: var(--bg-surface);
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.header-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: bold;
+}
+
+.breadcrumbs {
+    display: none; 
+}
+
+.sidebar {
+    position: fixed;
+    top: var(--header-height);
+    left: -100%;
+    width: var(--sidebar-width);
+    height: calc(100vh - var(--header-height));
+    background-color: var(--bg-sidebar);
+    color: var(--text-on-dark);
+    transition: left var(--transition-normal);
+    z-index: 20;
+}
+
+.sidebar.active {
+    left: 0;
+}
+
+.sidebar-nav ul {
+    list-style: none;
+    padding: 1rem 0;
+}
+
+.sidebar-nav a {
+    display: flex;
+    align-items: center;
+    min-height: var(--touch-target-min);
+    padding: 0 1.5rem;
+    color: var(--text-on-dark);
+    text-decoration: none;
+}
+
+.sidebar-nav li.active a, .sidebar-nav a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.main-content {
+    padding: 1rem;
+}
+
+.bento-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+
+@media (min-width: 768px) {
+    .breadcrumbs {
+        display: block;
+    }
+
+    .breadcrumbs ol {
+        display: flex;
+        list-style: none;
+        gap: 0.5rem;
+        font-size: 0.875rem;
+        color: var(--text-secondary);
+    }
+
+    .breadcrumbs li+li:before {
+        content: "/";
+        margin-right: 0.5rem;
+    }
+
+    .app-layout {
+        grid-template-columns: var(--sidebar-width) 1fr;
+    }
+
+    .sidebar {
+        position: static;
+        height: auto;
+        left: 0;
+    }
+
+    #sidebar-toggle {
+        display: none;
+    }
+
+    .bento-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .card-large {
+        grid-column: span 3;
+    }
+}
