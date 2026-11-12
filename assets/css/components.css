@@ -1,4 +1,3 @@
-
 /* TARJETAS */
 
 .card {
@@ -13,14 +12,6 @@
 .card:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
-}
-
-.metric-card {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 0.75rem;
-    min-height: 150px;
 }
 
 .metric-card h3 {
@@ -469,5 +460,172 @@ tbody tr:hover {
         scroll-behavior: auto !important;
         animation-duration: 0.01ms !important;
         transition-duration: 0.01ms !important;
+    }
+}
+
+.metric-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-width: 0;
+}
+
+.metric-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.metric-info h3 {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.75rem;
+}
+
+.metric-description {
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    margin-top: 0.6rem;
+}
+
+.metric-chart {
+    flex-shrink: 0;
+}
+
+.circular-chart {
+    --progress: 0%;
+
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+
+    display: grid;
+    place-items: center;
+
+    background: conic-gradient(
+        var(--chart-color) calc(var(--progress) * 1),
+        var(--border-color) 0
+    );
+
+    position: relative;
+}
+
+.circular-chart::before {
+    content: "";
+    position: absolute;
+    width: 76px;
+    height: 76px;
+    background: var(--bg-surface);
+    border-radius: 50%;
+}
+
+.circular-chart span {
+    position: relative;
+    z-index: 1;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.cpu-chart {
+    --chart-color: #2563eb;
+}
+
+.ram-chart {
+    --chart-color: #d97706;
+}
+
+.network-chart {
+    width: 115px;
+}
+
+.network-bars {
+    height: 90px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 5px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 3px;
+}
+
+.network-bar-pair {
+    height: 100%;
+    flex: 1;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 2px;
+}
+
+.network-bar-pair span {
+    width: 45%;
+    min-height: 3px;
+    border-radius: 3px 3px 0 0;
+}
+
+.network-bar-pair span:first-child {
+    background-color: #16a34a;
+}
+
+.network-bar-pair span:last-child {
+    background-color: #2563eb;
+}
+
+.network-legend {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 8px;
+    font-size: 0.65rem;
+    color: var(--text-secondary);
+}
+
+.network-legend span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.network-legend i {
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+}
+
+.legend-in {
+    background: #16a34a;
+}
+
+.legend-out {
+    background: #2563eb;
+}
+
+@media (max-width: 639px) {
+    .metric-card {
+        padding: 1rem;
+        gap: 0.5rem;
+    }
+
+    .circular-chart {
+        width: 82px;
+        height: 82px;
+    }
+
+    .circular-chart::before {
+        width: 62px;
+        height: 62px;
+    }
+
+    .network-chart {
+        width: 100px;
+    }
+
+    .network-bars {
+        height: 75px;
+    }
+
+    .metric-value {
+        font-size: 1.35rem;
     }
 }

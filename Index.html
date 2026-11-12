@@ -41,24 +41,82 @@
         </aside>
 
         <main class="main-content">
-            <section class="bento-grid">
+            <section class="bento-grid">   
                 <article class="card metric-card">
-                    <h3>Uso de CPU</h3>
-                    <p class="metric-value">42.5%</p>
-                    <span class="badge badge-success">Estable</span>
+                    <div class="metric-info">
+                        <h3>Uso de CPU</h3>
+                        <p class="metric-value">42.5%</p>
+                        <span class="badge badge-success">Estable</span>
+                        <p class="metric-description">Procesador utilizado</p>
+                    </div>
+
+                    <div class="metric-chart circular-chart cpu-chart"
+                        style="--progress: 42.5%;"
+                        role="img"
+                        aria-label="Consumo de CPU: 42.5%">
+                        <span>42.5%</span>
+                    </div>
                 </article>
 
                 <article class="card metric-card">
-                    <h3>Memoria RAM</h3>
-                    <p class="metric-value">12.4 GB / 16 GB</p>
-                    <span class="badge badge-warning">Elevado</span>
+                    <div class="metric-info">
+                        <h3>Memoria RAM</h3>
+                        <p class="metric-value">12.4 GB / 16 GB</p>
+                        <span class="badge badge-warning">Elevado</span>
+                        <p class="metric-description">77.5% de memoria utilizada</p>
+                    </div>
+
+                    <div class="metric-chart circular-chart ram-chart"
+                        style="--progress: 77.5%;"
+                        role="img"
+                        aria-label="Consumo de RAM: 77.5%">
+                        <span>77.5%</span>
+                    </div>
                 </article>
 
                 <article class="card metric-card">
-                    <h3>Tráfico Entrante/Saliente</h3>
-                    <p class="metric-value">1.2 Gbps</p>
-                    <span class="badge badge-success">Normal</span>
-                </article>
+                    <div class="metric-info">
+                        <h3>Tráfico Entrante/Saliente</h3>
+                        <p class="metric-value">1.2 Gbps</p>
+                        <span class="badge badge-success">Normal</span>
+                        <p class="metric-description">Transferencia de red</p>
+                    </div>
+
+                    <div class="metric-chart network-chart">
+                        <div class="network-bars" role="img"
+                            aria-label="Gráfico ilustrativo de tráfico entrante y saliente">
+                            <div class="network-bar-pair">
+                                <span style="height: 35%"></span>
+                                <span style="height: 25%"></span>
+                            </div>
+                            <div class="network-bar-pair">
+                                <span style="height: 60%"></span>
+                                <span style="height: 45%"></span>
+                            </div>
+                            <div class="network-bar-pair">
+                                <span style="height: 45%"></span>
+                                <span style="height: 65%"></span>
+                            </div>
+                            <div class="network-bar-pair">
+                                <span style="height: 80%"></span>
+                                <span style="height: 55%"></span>
+                            </div>
+                            <div class="network-bar-pair">
+                                <span style="height: 55%"></span>
+                                <span style="height: 75%"></span>
+                            </div>
+                            <div class="network-bar-pair">
+                                <span style="height: 95%"></span>
+                                <span style="height: 65%"></span>
+                            </div>
+                        </div>
+
+                        <div class="network-legend">
+                            <span><i class="legend-in"></i> Entrada</span>
+                            <span><i class="legend-out"></i> Salida</span>
+                        </div>
+                    </div>
+                </article>      
 
                 <article class="card card-large">
                     <header class="card-header">
